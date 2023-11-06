@@ -11,7 +11,7 @@ int	main(int argc, char **argv)
 		{
 			string = argv[i];
 			for (unsigned long j = 0; j < string.length(); j++)
-				std::cout << (char)toupper(argv[i][j]);
+				std::cout << (char)std::toupper(argv[i][j]);
 		}
 		std::cout << std::endl;
 	}

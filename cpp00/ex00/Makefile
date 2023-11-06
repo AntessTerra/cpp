@@ -10,10 +10,8 @@ $(NAME): $(OBJ)
 	@c++ $(CPPFLAGS) -o $@ $^
 
 clean:
-	@rm -f $(OBJ)
 
 fclean:
-	@rm -f $(OBJ)
 	@rm -f $(NAME)
 
 re:	fclean
