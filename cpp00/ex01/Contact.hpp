@@ -1,40 +1,63 @@
 #include <iostream>
+#include <sstream>
+#include <iomanip>
 
 class Contact
 {
 private:
-	int			m_index;
-	std::string	m_first_name;
-	std::string	m_last_name;
-	std::string	m_nickname;
-	std::string	m_darkest_secret;
-	int			m_phone_number;
+	int			_index;
+	std::string	_first_name, _last_name, _nickname, _darkest_secret, _phone_number;
 
 public:
 	Contact(int index = 0, std::string first_name = "", std::string last_name = "",
 		std::string nickname = "", std::string darkest_secret = "",
-		int phone_number = 0)
-		: m_index(index), m_first_name(first_name), m_last_name(last_name),
-		m_nickname(nickname), m_darkest_secret(darkest_secret),
-		m_phone_number(phone_number)
+		std::string phone_number = "")
+		: _index(index), _first_name(first_name), _last_name(last_name),
+		_nickname(nickname), _darkest_secret(darkest_secret),
+		_phone_number(phone_number)
 	{
-		// std::cout << "Contact created" << std::endl;
 	}
 
-	void	setFirstName(std::string first_name)
+	Contact& operator=(const Contact& other) {
+		this->_index = other._index;
+		this->_first_name = other._first_name;
+		this->_last_name = other._last_name;
+		this->_nickname = other._nickname;
+		this->_darkest_secret = other._darkest_secret;
+		this->_phone_number = other._phone_number;
+		return *this;
+	}
+
+	int	getIndex()
 	{
-		m_first_name = first_name;
+		return (_index);
+	}
+
+	std::string	getPhone()
+	{
+		return (_phone_number);
 	}
 
 	std::string	getFirstName()
 	{
-		return (m_first_name);
+		return (_first_name);
 	}
 
-	~Contact()
+	std::string	getLastName()
 	{
-		// std::cout << "Contact destroyed" << std::endl;
+		return (_last_name);
 	}
+
+	std::string	getNickname()
+	{
+		return (_nickname);
+	}
+
+	std::string	getSecret()
+	{
+		return (_darkest_secret);
+	}
+
 };
 
 
