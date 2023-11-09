@@ -4,11 +4,11 @@ class PhoneBook
 {
 private:
 	Contact	_contacts[8];
-	int		_last_added;
+	int		_lastAdded;
 
 	std::string	truncate(std::string str, int width)
 	{
-		if (str.length() > width)
+		if ((int)str.length() > width)
 		{
 			str.resize(width);
 			return (str + ".");
@@ -40,40 +40,40 @@ private:
 public:
 	PhoneBook()
 	{
-		_last_added = -1;
+		_lastAdded = -1;
 		// std::cout << "Contact created" << std::endl;
 	}
 
 	void	addContact()
 	{
-		std::string	first_name, last_name, nickname, darkest_secret, phone;
+		std::string	firstName, lastName, nickname, darkestSecret, phone;
 
-		first_name = getValueFromUser("Enter first name: ");
-		while (first_name.length() <= 0)
-			first_name = getValueFromUser("ERROR: Enter first name: ");
+		firstName = getValueFromUser("Enter first name: ");
+		while (firstName.length() <= 0)
+			firstName = getValueFromUser("ERROR: Enter first name: ");
 
-		last_name = getValueFromUser("Enter last name: ");
-		while (last_name.length() <= 0)
-			last_name = getValueFromUser("ERROR: Enter last name: ");
+		lastName = getValueFromUser("Enter last name: ");
+		while (lastName.length() <= 0)
+			lastName = getValueFromUser("ERROR: Enter last name: ");
 
 		nickname = getValueFromUser("Enter nickname: ");
 		while (nickname.length() <= 0)
 			nickname = getValueFromUser("ERROR: Enter nickname: ");
 
-		darkest_secret = getValueFromUser("Enter your darkest secret: ");
-		while (darkest_secret.length() <= 0)
-			darkest_secret = getValueFromUser("ERROR: Enter your darkest secret: ");
+		darkestSecret = getValueFromUser("Enter your darkest secret: ");
+		while (darkestSecret.length() <= 0)
+			darkestSecret = getValueFromUser("ERROR: Enter your darkest secret: ");
 
 		phone = getValueFromUser("Enter phonenumber: ");
 		while (phone.length() <= 3 || is_digits(phone) == 0)
 			phone = getValueFromUser("ERROR: Enter phonenumber: ");
 
 
-		_last_added = _last_added + 1;
-		if (_last_added == 8)
-			_last_added = 0;
-		_contacts[_last_added] = Contact(_last_added, first_name, last_name, nickname, darkest_secret, phone);
-		std::cout << "Added to index " << _last_added << std::endl;
+		_lastAdded = _lastAdded + 1;
+		if (_lastAdded == 8)
+			_lastAdded = 0;
+		_contacts[_lastAdded] = Contact(_lastAdded, firstName, lastName, nickname, darkestSecret, phone);
+		std::cout << "Successfully added contact" << std::endl;
 	}
 
 	void	printAll()
@@ -82,9 +82,24 @@ public:
 			print(i);
 	}
 
+	void	printAtString(std::string str)
+	{
+		for (int i = 0; i < 8 && _contacts[i].getFirstName().length() > 0; i++)
+		{
+			if (!_contacts[i].getFirstName().compare(str))
+				print(i);
+			else if (!_contacts[i].getLastName().compare(str))
+				print(i);
+			else if (!_contacts[i].getNickname().compare(str))
+				print(i);
+			else if (!_contacts[i].getSecret().compare(str))
+				print(i);
+		}
+	}
+
 	void	printAtNum(int n)
 	{
-		if (n < 8 && n >= 0 && _contacts[n].getFirstName().compare(""))
+		if (n < 8 && n >= 0 && _contacts[n].getFirstName().length() > 0)
 			print(n);
 		else if (n > 8 || n < 0)
 		{
@@ -92,7 +107,7 @@ public:
 			ss << n;
 			std::string number;
 			ss >> number;
-			for (int i = 0; _contacts[i].getPhone().length() > 0; i++)
+			for (int i = 0; i < 8 && _contacts[i].getPhone().length() > 0; i++)
 				if (!_contacts[i].getPhone().compare(number))
 					print(i);
 		}

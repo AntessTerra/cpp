@@ -1,7 +1,7 @@
-NAME = phony
+NAME = banky
 CPPFLAGS = -Wall -Wextra -Werror -g -std=c++98
 
-SRC = phony.cpp
+SRC = tests.cpp Account.cpp
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
