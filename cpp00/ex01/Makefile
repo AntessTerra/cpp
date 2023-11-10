@@ -1,7 +1,7 @@
 NAME = phony
 CPPFLAGS = -Wall -Wextra -Werror -g -std=c++98
 
-SRC = phony.cpp
+SRC = phony.cpp Contact.cpp PhoneBook.cpp
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
