@@ -1,5 +1,5 @@
-#ifndef CONTACT
-#define CONTACT
+#ifndef __CONTACT__
+#define __CONTACT__
 
 #include <iostream>
 class Contact
