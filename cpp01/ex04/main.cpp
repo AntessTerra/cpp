@@ -1,5 +1,6 @@
-#include <iostream>
 #include <fstream>
+#include <sstream>
+#include <iostream>
 
 int	printError(std::string error){
 	std::cout << error << std::endl;
@@ -22,9 +23,17 @@ int	main(int argc, char **argv) {
 	out.open(filename.append(".replace").c_str(), std::ios::out);
 	if (!out)
 		return (printError("Cannot create out file!!"));
-	std::string	word;
-	while (in >> word)
-		std::cout << word << std::endl;
+	std::string	 word, line;
+	while (std::getline(in, line)){
+		std::stringstream	ss(line);
+		while (ss >> word){
+			if (!word.compare(s1))
+				out << s2 + " ";
+			else
+				out << word + " ";
+		}
+		out << std::endl;
+	}
 	in.close();
 	out.close();
 }
