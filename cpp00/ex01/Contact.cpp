@@ -7,9 +7,9 @@ Contact::Contact(){
 	return ;
 }
 
-Contact::Contact(int index = 0, std::string first_name = "", std::string last_name = "",
-	std::string nickname = "", std::string darkest_secret = "",
-	std::string phone_number = "")
+Contact::Contact(int index, std::string first_name, std::string last_name,
+	std::string nickname, std::string darkest_secret,
+	std::string phone_number)
 	: _index(index), _firstName(first_name), _lastName(last_name),
 	_nickname(nickname), _darkestSecret(darkest_secret),
 	_phoneNumber(phone_number){
