@@ -24,6 +24,9 @@ Account::Account( int initial_deposit ){
 	_totalAmount += initial_deposit;
 	_amount = initial_deposit;
 	_nbAccounts++;
+	Account::_displayTimestamp();
+	std::cout << "index:" << this->_accountIndex << ";" <<
+	"amount:" << _amount << ";created" << std::endl;
 	return ;
 }
 
@@ -53,12 +56,40 @@ void	Account::displayAccountsInfos( void ){
 }
 
 void	Account::makeDeposit( int deposit ){
-	(void)deposit;
+	int	p_amount = _amount;
+	_amount += deposit;
+	_totalAmount += deposit;
+	_nbDeposits++;
+	_totalNbDeposits++;
+	Account::_displayTimestamp();
+	std::cout << "index:" << this->_accountIndex << ";" <<
+	"p_amount:" << p_amount << ";" <<
+	"deposit:" << deposit << ";" <<
+	"amount:" << _amount << ";" <<
+	"nb_deposits:" << _nbDeposits << std::endl;
 }
 
 bool	Account::makeWithdrawal( int withdrawal ){
-	(void)withdrawal;
-	return false;
+	int	p_amount = _amount;
+	if (p_amount - withdrawal < 0)
+	{
+		Account::_displayTimestamp();
+		std::cout << "index:" << this->_accountIndex << ";" <<
+		"p_amount:" << p_amount << ";" <<
+		"withdrawal:refused" << std::endl;
+		return (false);
+	}
+	_amount -= withdrawal;
+	_totalAmount -= withdrawal;
+	_nbWithdrawals++;
+	_totalNbWithdrawals++;
+	Account::_displayTimestamp();
+	std::cout << "index:" << this->_accountIndex << ";" <<
+	"p_amount:" << p_amount << ";" <<
+	"withdrawal:" << withdrawal << ";" <<
+	"amount:" << _amount << ";" <<
+	"nb_withdrawals:" << _nbWithdrawals << std::endl;
+	return (true);
 }
 
 int	Account::checkAmount( void ) const{
@@ -66,7 +97,11 @@ int	Account::checkAmount( void ) const{
 }
 
 void	Account::displayStatus( void ) const{
-
+	Account::_displayTimestamp();
+	std::cout << "index:" << this->_accountIndex << ";" <<
+	"amount:" << _amount << ";" <<
+	"deposits:" << _nbDeposits << ";" <<
+	"withdrawals:" << _nbWithdrawals << std::endl;
 }
 
 void	Account::_displayTimestamp( void ){
@@ -78,6 +113,9 @@ void	Account::_displayTimestamp( void ){
 }
 
 Account::~Account(){
+	Account::_displayTimestamp();
+	std::cout << "index:" << this->_accountIndex << ";" <<
+	"amount:" << _amount << ";closed" << std::endl;
 	return ;
 }
 
