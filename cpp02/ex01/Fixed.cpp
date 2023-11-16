@@ -7,24 +7,15 @@ Fixed::Fixed(): _val(0){
 	return ;
 }
 
-Fixed::Fixed(const int num): _val(num){
+Fixed::Fixed(const int num){
 	std::cout << "\e[0;33m↩ Int constructor called\e[0m" << std::endl;
+	_val = num << _fracBits;
 	return ;
 }
 
 Fixed::Fixed(const float num){
 	std::cout << "\e[0;34m↪ Float constructor called\e[0m" << std::endl;
-	// std::string	s, t;
-	// std::stringstream	ss;
-	// ss << num;
-	// s = ss.str();
-	// t = s.substr(s.find(".") + 1);
-	// _val = (num >> t.length());
-	float	test = num;
-	while ((int)test % 10 > 0){
-		std::cout << (int)test << std::endl;
-		test = (test * 10);
-	}
+	_val = (num * (1 << _fracBits));
 	return ;
 }
 
@@ -65,9 +56,9 @@ void	Fixed::setRawBits(int const raw){
 }
 
 float	Fixed::toFloat(void) const{
-	return ((float)_val);
+	return (((float)_val) / (1 << _fracBits));
 }
 
 int	Fixed::toInt(void) const{
-	return ((int)_val);
+	return (_val >> _fracBits);
 }
