@@ -1,8 +1,8 @@
 #include <iostream>
 #include "Fixed.hpp"
 
-//https://www.yaldex.com/game-programming/0131020099_ch13lev1sec3.html
-//https://www.geeksforgeeks.org/introduction-to-binary-tree-data-structure-and-algorithm-tutorials/
+// https://www.yaldex.com/game-programming/0131020099_ch13lev1sec3.html
+// https://www.geeksforgeeks.org/introduction-to-binary-tree-data-structure-and-algorithm-tutorials/
 
 int main( void ) {
 	Fixed a;
