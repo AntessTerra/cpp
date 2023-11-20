@@ -1,5 +1,6 @@
 #include <iostream>
 #include <sstream>
+#include <cmath>
 #include "Fixed.hpp"
 
 Fixed::Fixed(): _val(0){
@@ -15,7 +16,7 @@ Fixed::Fixed(const int num){
 
 Fixed::Fixed(const float num){
 	std::cout << "\e[0;34m↪ Float constructor called\e[0m" << std::endl;
-	_val = (num * (1 << _fracBits));
+	_val = (roundf(num * (1 << _fracBits)));
 	return ;
 }
 

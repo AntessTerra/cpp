@@ -6,12 +6,18 @@
 class Point
 {
 private:
-	Fixed	_x, _y;
+	Fixed const	_x, _y;
 public:
-	Point(int x, int y);
+	Point();
+	Point(Fixed const x, Fixed const y);
 	Point(const Point &point);
 	~Point();
 	Point&	operator = (const Point &Point);
-};
 
-#endif __POINT__
+	const Fixed&	getX() const;
+	const Fixed&	getY() const;
+
+};
+bool	bsp(Point const a,  Point const b, Point const c, Point const point);
+
+#endif

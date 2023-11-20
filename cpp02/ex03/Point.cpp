@@ -1,11 +1,16 @@
 #include "Point.hpp"
 
-Point::Point(int x, int y): _x(x), _y(y){
+Point::Point(): _x(0), _y(0){
+	std::cout << "Calling constructor!!!" << std::endl;
 	return ;
 }
 
-Point::Point(const Point &point){
-	*this = point;
+Point::Point(Fixed const x, Fixed const y): _x(x), _y(y){
+	return ;
+}
+
+Point::Point(const Point &point): _x(point.getX()), _y(point.getY()){
+	return ;
 }
 
 Point::~Point(){
@@ -13,8 +18,16 @@ Point::~Point(){
 }
 
 Point&	Point::operator = (const Point &point){
-	_x = point._x;
-	_y = point._y;
+	if (this == &point)
+		return *this;
 	return (*this);
+}
+
+const Fixed&	Point::getX() const{
+	return (_x);
+}
+
+const Fixed&	Point::getY() const{
+	return (_y);
 }
 

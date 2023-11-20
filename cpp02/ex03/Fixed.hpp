@@ -1,6 +1,8 @@
 #ifndef __FIXED__
 #define	__FIXED__
 
+#include <iostream>
+
 class Fixed
 {
 private:
