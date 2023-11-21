@@ -30,7 +30,7 @@ void	draw(Point const a, Point const b, Point const c, Point const point){
 }
 
 int main( void ) {
-	Point	A(Fixed(0), Fixed(0)), B(Fixed(20), Fixed(0)), C(Fixed(10), Fixed(30)), P(Fixed(10), Fixed(15));
+	Point	A(0, 0), B(20, 0), C(10, 30), P(10, 15);
 	draw(A, B, C, P);
 	if (bsp(A, B, C, P))
 		std::cout << "Point is inside the triangle" << std::endl;
