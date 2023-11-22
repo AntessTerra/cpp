@@ -2,6 +2,7 @@
 #define __CLAPTRAP__
 
 #include <iostream>
+#include <ncurses.h>
 
 class ClapTrap
 {
@@ -13,6 +14,13 @@ public:
 	ClapTrap(const ClapTrap& clap);
 	~ClapTrap();
 	ClapTrap&	operator = (const ClapTrap &clap);
+
+	void			consoleLog(WINDOW *w, int x, int y, std::string message);
+	void			display(WINDOW *w, int x, int y, std::string message);
+	std::string		getName() const;
+	int				getHitPoints() const;
+	int				getEnergyPoints() const;
+	int				getAttackDamage() const;
 };
 
 #define CONSTRUCTOR "                  :                               \n\

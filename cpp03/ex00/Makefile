@@ -7,7 +7,7 @@ OBJ = $(SRC:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@c++ $(CPPFLAGS) -o $@ $^
+	@c++ $(CPPFLAGS) -o $@ $^ -lncurses
 
 clean:
 
