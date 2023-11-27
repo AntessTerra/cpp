@@ -3,20 +3,30 @@
 
 #include <iostream>
 #include <ncurses.h>
+#include <sstream>
+
+#define	GRAPHICS 1
+
+#if GRAPHICS
+extern WINDOW				*map, *console, *info;
+extern std::stringstream	logs, image;
+#endif
 
 class ClapTrap
 {
 private:
 	std::string	_name;
-	static const int	_hp = 10, _ep = 10, _ad = 0;
+	int	_hp, _ep, _ad;
 public:
 	ClapTrap(std::string name);
 	ClapTrap(const ClapTrap& clap);
 	~ClapTrap();
 	ClapTrap&	operator = (const ClapTrap &clap);
 
-	void			consoleLog(WINDOW *w, int x, int y, std::string message);
-	void			display(WINDOW *w, int x, int y, std::string message);
+	void	attack(const std::string& target);
+	void	takeDamage(unsigned int amount);
+	void	beRepaired(unsigned int amount);
+
 	std::string		getName() const;
 	int				getHitPoints() const;
 	int				getEnergyPoints() const;
