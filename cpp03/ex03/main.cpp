@@ -1,5 +1,4 @@
-#include "FragTrap.hpp"
-#include "ScavTrap.hpp"
+#include "DiamondTrap.hpp"
 
 #include <cstdlib>
 #include <unistd.h>
@@ -80,22 +79,22 @@ void	redraw(const ClapTrap &clappy, const ScavTrap& scavvy, const FragTrap& frag
 
 	std::stringstream	mess, tmp(logs.str());
 	std::string			line;
-	int					i = 0;
+	int					j = 0;
 	while (std::getline(tmp, line)){
 		mess << line << std::endl;
-		i++;
+		j++;
 	}
-	while (i > 0){
+	while (j > 0){
 		std::getline(mess, line);
-		if (i == 1){
-			mvwprintw(console, i, 1, "%s", line.c_str());
-			mvwchgat(console, i, 1, -1, A_BOLD, 0, NULL);
+		if (j == 1){
+			mvwprintw(console, j, 1, "%s", line.c_str());
+			mvwchgat(console, j, 1, -1, A_BOLD, 0, NULL);
 		}
 		else{
-			mvwprintw(console, i, 1, "%s", line.c_str());
-			mvwchgat(console, i, 1, -1, A_DIM, 0, NULL);
+			mvwprintw(console, j, 1, "%s", line.c_str());
+			mvwchgat(console, j, 1, -1, A_DIM, 0, NULL);
 		}
-		i--;
+		j--;
 	}
 
 	box(console, 0, 0);
@@ -247,19 +246,12 @@ int	main(){
 }
 #else
 int	main(){
-	ClapTrap	clappy("Steven");
+	DiamondTrap	dia("Harold");
 
-	clappy.attack("Fred");
-	clappy.takeDamage(5);
-	clappy.beRepaired(3);
-
-	ScavTrap	scavvy("Alex");
-
-	scavvy.guardGate();
-
-	FragTrap	fraggy("Petr");
-
-	fraggy.highFivesGuys();
+	dia.attack("Blank");
+	dia.guardGate();
+	dia.highFivesGuys();
+	dia.whoAmI();
 
 	return 0;
 }
