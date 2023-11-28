@@ -1,3 +1,4 @@
+#include "FragTrap.hpp"
 #include "ScavTrap.hpp"
 
 #include <cstdlib>
@@ -7,14 +8,18 @@
 WINDOW				*map, *console, *info, *menu;
 std::stringstream	logs, image;
 std::string			choices[] = {
-					"(CA) Clap Attack",
-					"(CD) Clap Take Damage",
-					"(CR) Clap Repair ",
-					"(CG) Not Supported",
-					"(SA) Scav Attack",
-					"(ST) Scav Take Damage",
-					"(SR) Scav Repair",
-					"(SG) Scav Guard Gate",
+					"(CA) Attack",
+					"(CD) Take Damage",
+					"(CR) Repair ",
+					"(CG) Non-exist",
+					"(SA) Attack",
+					"(ST) Take Damage",
+					"(SR) Repair",
+					"(SG) Guard Gate",
+					"(FA) Attack",
+					"(FT) Take Damage",
+					"(FR) Repair",
+					"(FH) High Five",
 					"(F1) Exit",
 					};
 int					row, col, in_menu = 0, n_choices = sizeof(choices) / sizeof(std::string);
@@ -28,7 +33,7 @@ WINDOW	*create_newwin(int height, int width, int starty, int startx){
 	return (win);
 }
 
-void	redraw(const ClapTrap &clappy, const ScavTrap& scavvy){
+void	redraw(const ClapTrap &clappy, const ScavTrap& scavvy, const FragTrap& fraggy){
 	delwin(map);
 	map = create_newwin(0.8*row, 0.75*col, 0, 0);
 
@@ -57,6 +62,15 @@ void	redraw(const ClapTrap &clappy, const ScavTrap& scavvy){
 	mvwchgat(info, 10, 1, -1, NULL, 2, NULL);
 	mvwprintw(info, 11, 1, "%s: %i", "Attack Damage", scavvy.getAttackDamage());
 	mvwchgat(info, 11, 1, -1, NULL, 3, NULL);
+
+	mvwprintw(info, 13, 1, "%s", fraggy.getName().c_str());
+	mvwchgat(info, 13, 1, -1, A_BOLD, 0, NULL);
+	mvwprintw(info, 15, 1, "%s: %i", "Hit Ponits", fraggy.getHitPoints());
+	mvwchgat(info, 15, 1, -1, NULL, 1, NULL);
+	mvwprintw(info, 16, 1, "%s: %i", "Energy Points", fraggy.getEnergyPoints());
+	mvwchgat(info, 16, 1, -1, NULL, 2, NULL);
+	mvwprintw(info, 17, 1, "%s: %i", "Attack Damage", fraggy.getAttackDamage());
+	mvwchgat(info, 17, 1, -1, NULL, 3, NULL);
 
 	box(info, 0, 0);
 	wrefresh(info);
@@ -94,18 +108,23 @@ void	redraw(const ClapTrap &clappy, const ScavTrap& scavvy){
 		mvwprintw(menu, 1, 1, "Menu");
 		mvwchgat(menu, 1, 1, -1, A_STANDOUT, 0, NULL);
 		mvwprintw(menu, 2, 1, "%s", clappy.getName().c_str());
-		mvwchgat(menu, 2, 1, 0.1875*col, A_BOLD, 2, NULL);
-		mvwprintw(menu, 2, 1 + 0.1875*col, "%s", scavvy.getName().c_str());
-		mvwchgat(menu, 2, 1 + 0.1875*col, -1, A_BOLD, 3, NULL);
+		mvwchgat(menu, 2, 1, 0.12*col, A_BOLD, 2, NULL);
+		mvwprintw(menu, 2, 1 + 0.12*col, "%s", scavvy.getName().c_str());
+		mvwchgat(menu, 2, 1 + 0.12*col, -1, A_BOLD, 3, NULL);
+		mvwprintw(menu, 2, 1 + 0.24*col, "%s", fraggy.getName().c_str());
+		mvwchgat(menu, 2, 1 + 0.24*col, -1, A_BOLD, 4, NULL);
 		for (int i = 0; i < n_choices; i++){
 			if (i < 4){
 				mvwprintw(menu, i + 3, 1, "%s", choices[i].c_str());
 			}
 			else if (i < 8){
-				mvwprintw(menu, i - 1, 1 + 0.1875*col, "%s", choices[i].c_str());
+				mvwprintw(menu, i - 1, 1 + 0.12*col, "%s", choices[i].c_str());
+			}
+			else if (i < 12){
+				mvwprintw(menu, i - 5, 1 + 0.24*col, "%s", choices[i].c_str());
 			}
 			else {
-				mvwprintw(menu, i, 1, "%s", choices[i].c_str());
+				mvwprintw(menu, i - 4, 1, "%s", choices[i].c_str());
 			}
 		}
 
@@ -119,6 +138,7 @@ int	main(){
 	int ch;
 	ClapTrap	clappy("Steven");
 	ScavTrap	scavvy("Alex");
+	FragTrap	fraggy("Petr");
 
 	initscr();
 	if(has_colors() == FALSE){
@@ -132,6 +152,7 @@ int	main(){
 	init_pair(1, COLOR_RED, COLOR_BLACK);
 	init_pair(2, COLOR_GREEN, COLOR_BLACK);
 	init_pair(3, COLOR_MAGENTA, COLOR_BLACK);
+	init_pair(4, COLOR_BLUE, COLOR_BLACK);
 	keypad(stdscr, TRUE);
 	noecho();
 	curs_set(0);
@@ -140,18 +161,18 @@ int	main(){
 	console = create_newwin(0.22*row, 0.75*col, 0.8*row, 0);
 	info = create_newwin(row, 0.25*col, 0, 0.75*col);
 	menu = create_newwin(0.4*row, 0.375*col, 0.2*row, 0.1875*col);
-	redraw(clappy, scavvy);
+	redraw(clappy, scavvy, fraggy);
 	while((ch = getch()) != KEY_F(1)){
 		switch(ch){
 			case 10:
 				in_menu = 1;
-				redraw(clappy, scavvy);
+				redraw(clappy, scavvy, fraggy);
 				while((ch = getch()) != 10 && ch != KEY_F(1)){
 					switch(ch){
 						case 115:
 							for (int i = 0; i < n_choices; i++){
 								if (i < 4){
-									mvwchgat(menu, i + 3, 1 + 0.1875*col, choices[i].length() + 3, A_BOLD, 3, NULL);
+									mvwchgat(menu, i + 3, 1 + 0.12*col, choices[i].length() +1, A_BOLD, 3, NULL);
 									wrefresh(menu);
 								}
 							}
@@ -182,12 +203,29 @@ int	main(){
 							else if (ch == 103)
 								logs << "ClapTrap " << clappy.getName() << " cannot perform Guard Gate!!" << std::endl;
 							break;
+						case 102:
+							for (int i = 0; i < n_choices; i++){
+								if (i >= 8 && i < 12){
+									mvwchgat(menu, i - 5, 1 + 0.24*col, choices[i].length(), A_BOLD, 4, NULL);
+									wrefresh(menu);
+								}
+							}
+							ch = getch();
+							if (ch == 97)
+								fraggy.attack(scavvy.getName());
+							else if (ch == 100)
+								fraggy.takeDamage(1);
+							else if (ch == 114)
+								fraggy.beRepaired(1);
+							else if (ch == 104)
+								fraggy.highFivesGuys();;
+							break;
 
-					// default:
-							// printw("\nThe pressed key is %i",ch);
+					default:
+							printw("\nThe pressed key is %i",ch);
 					}
 					// mvprintw(row-2,0,"This screen has %d rows and %d columns\n",row,col);
-					redraw(clappy, scavvy);
+					redraw(clappy, scavvy, fraggy);
 				}
 				in_menu = 0;
 				break;
@@ -195,11 +233,12 @@ int	main(){
 				// printw("\nThe pressed key is %i",ch);
 		}
 		// mvprintw(row-2,0,"This screen has %d rows and %d columns\n",row,col);
-		redraw(clappy, scavvy);
+		redraw(clappy, scavvy, fraggy);
 	}
 	clappy.~ClapTrap();
 	scavvy.~ScavTrap();
-	redraw(clappy, scavvy);
+	fraggy.~FragTrap();
+	redraw(clappy, scavvy, fraggy);
 	sleep(2);
 	endwin();
 	exit_curses(0);
@@ -217,6 +256,10 @@ int	main(){
 	ScavTrap	scavvy("Alex");
 
 	scavvy.guardGate();
+
+	FragTrap	fraggy("Petr");
+
+	fraggy.highFivesGuys();
 
 	return 0;
 }
