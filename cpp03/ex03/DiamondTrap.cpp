@@ -28,9 +28,9 @@ DiamondTrap::~DiamondTrap(){
 
 void	DiamondTrap::whoAmI(){
 	#if !GRAPHICS
-		std::cout << "DiamondTrap WHOAMI?? My name: " << _name << " and clap name: " << ClapTrap::_name << std::endl;
+		std::cout << "DiamondTrap WHOAMI?? My name is: " << _name << " and clap name is: " << ClapTrap::_name << std::endl;
 	#else
-		logs << "DiamondTrap WHOAMI?? My name: " << _name << " and clap name: " << ClapTrap::_name << std::endl;
+		logs << "DiamondTrap WHOAMI?? My name is: " << _name << " and clap name is: " << ClapTrap::_name << std::endl;
 	#endif
 	return ;
 }

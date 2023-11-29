@@ -12,13 +12,19 @@ std::string			choices[] = {
 					"(CR) Repair ",
 					"(CG) Non-exist",
 					"(SA) Attack",
-					"(ST) Take Damage",
+					"(SD) Take Damage",
 					"(SR) Repair",
 					"(SG) Guard Gate",
 					"(FA) Attack",
-					"(FT) Take Damage",
+					"(FD) Take Damage",
 					"(FR) Repair",
 					"(FH) High Five",
+					"(DA) Attack",
+					"(DD) Take Damage",
+					"(DR) Repair",
+					"(DG) Guard Gate",
+					"(DH) High Five",
+					"(DW) Who Am I?",
 					"(F1) Exit",
 					};
 int					row, col, in_menu = 0, n_choices = sizeof(choices) / sizeof(std::string);
@@ -45,7 +51,7 @@ void	redraw(const ClapTrap &clappy, const ScavTrap& scavvy, const FragTrap& frag
 	info = create_newwin(row, 0.25*col, 0, 0.75*col);
 
 	mvwprintw(info, 1, 1, "%s", clappy.getName().c_str());
-	mvwchgat(info, 1, 1, -1, A_BOLD, 0, NULL);
+	mvwchgat(info, 1, 1, -1, A_BOLD, 2, NULL);
 	mvwprintw(info, 3, 1, "%s: %i", "Hit Ponits", clappy.getHitPoints());
 	mvwchgat(info, 3, 1, -1, NULL, 1, NULL);
 	mvwprintw(info, 4, 1, "%s: %i", "Energy Points", clappy.getEnergyPoints());
@@ -54,7 +60,7 @@ void	redraw(const ClapTrap &clappy, const ScavTrap& scavvy, const FragTrap& frag
 	mvwchgat(info, 5, 1, -1, NULL, 3, NULL);
 
 	mvwprintw(info, 7, 1, "%s", scavvy.getName().c_str());
-	mvwchgat(info, 7, 1, -1, A_BOLD, 0, NULL);
+	mvwchgat(info, 7, 1, -1, A_BOLD, 3, NULL);
 	mvwprintw(info, 9, 1, "%s: %i", "Hit Ponits", scavvy.getHitPoints());
 	mvwchgat(info, 9, 1, -1, NULL, 1, NULL);
 	mvwprintw(info, 10, 1, "%s: %i", "Energy Points", scavvy.getEnergyPoints());
@@ -63,7 +69,7 @@ void	redraw(const ClapTrap &clappy, const ScavTrap& scavvy, const FragTrap& frag
 	mvwchgat(info, 11, 1, -1, NULL, 3, NULL);
 
 	mvwprintw(info, 13, 1, "%s", fraggy.getName().c_str());
-	mvwchgat(info, 13, 1, -1, A_BOLD, 0, NULL);
+	mvwchgat(info, 13, 1, -1, A_BOLD, 4, NULL);
 	mvwprintw(info, 15, 1, "%s: %i", "Hit Ponits", fraggy.getHitPoints());
 	mvwchgat(info, 15, 1, -1, NULL, 1, NULL);
 	mvwprintw(info, 16, 1, "%s: %i", "Energy Points", fraggy.getEnergyPoints());
@@ -72,7 +78,7 @@ void	redraw(const ClapTrap &clappy, const ScavTrap& scavvy, const FragTrap& frag
 	mvwchgat(info, 17, 1, -1, NULL, 3, NULL);
 
 	mvwprintw(info, 19, 1, "%s", dia.getName().c_str());
-	mvwchgat(info, 19, 1, -1, A_BOLD, 0, NULL);
+	mvwchgat(info, 19, 1, -1, A_BOLD, 5, NULL);
 	mvwprintw(info, 21, 1, "%s: %i", "Hit Ponits", dia.getHitPoints());
 	mvwchgat(info, 21, 1, -1, NULL, 1, NULL);
 	mvwprintw(info, 22, 1, "%s: %i", "Energy Points", dia.getEnergyPoints());
@@ -121,6 +127,8 @@ void	redraw(const ClapTrap &clappy, const ScavTrap& scavvy, const FragTrap& frag
 		mvwchgat(menu, 2, 1 + 0.12*col, -1, A_BOLD, 3, NULL);
 		mvwprintw(menu, 2, 1 + 0.24*col, "%s", fraggy.getName().c_str());
 		mvwchgat(menu, 2, 1 + 0.24*col, -1, A_BOLD, 4, NULL);
+		mvwprintw(menu, 8, 1, "%s", dia.getName().c_str());
+		mvwchgat(menu, 8, 1, -1, A_BOLD, 5, NULL);
 		for (int i = 0; i < n_choices; i++){
 			if (i < 4){
 				mvwprintw(menu, i + 3, 1, "%s", choices[i].c_str());
@@ -130,6 +138,9 @@ void	redraw(const ClapTrap &clappy, const ScavTrap& scavvy, const FragTrap& frag
 			}
 			else if (i < 12){
 				mvwprintw(menu, i - 5, 1 + 0.24*col, "%s", choices[i].c_str());
+			}
+			else if (i < 18){
+				mvwprintw(menu, i - 3 - 3 * ((i - 12) / 3), 1 + ((i - 12) / 3) * 0.1875*col, "%s", choices[i].c_str());
 			}
 			else {
 				mvwprintw(menu, i - 4, 1, "%s", choices[i].c_str());
@@ -230,9 +241,30 @@ int	main(){
 							else if (ch == 104)
 								fraggy.highFivesGuys();;
 							break;
+						case 100:
+							for (int i = 0; i < n_choices; i++){
+								if (i >= 12 && i < 15){
+									mvwchgat(menu, i - 3, 1, 0.34*col, A_BOLD, 5, NULL);
+									wrefresh(menu);
+								}
+							}
+							ch = getch();
+							if (ch == 97)
+								dia.attack(scavvy.getName());
+							else if (ch == 100)
+								dia.takeDamage(1);
+							else if (ch == 114)
+								dia.beRepaired(1);
+							else if (ch == 104)
+								dia.highFivesGuys();
+							else if (ch == 103)
+								dia.guardGate();
+							else if (ch == 119)
+								dia.whoAmI();
+							break;
 
-					// default:
-					// 		printw("\nThe pressed key is %i",ch);
+					default:
+							printw("\nThe pressed key is %i",ch);
 					}
 					// mvprintw(row-2,0,"This screen has %d rows and %d columns\n",row,col);
 					redraw(clappy, scavvy, fraggy, dia);
