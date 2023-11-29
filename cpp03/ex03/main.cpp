@@ -263,8 +263,8 @@ int	main(){
 								dia.whoAmI();
 							break;
 
-					default:
-							printw("\nThe pressed key is %i",ch);
+					// default:
+					// 		printw("\nThe pressed key is %i",ch);
 					}
 					// mvprintw(row-2,0,"This screen has %d rows and %d columns\n",row,col);
 					redraw(clappy, scavvy, fraggy, dia);
