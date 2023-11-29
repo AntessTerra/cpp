@@ -47,3 +47,8 @@ DiamondTrap&	DiamondTrap::operator = (const DiamondTrap &diamond){
 	_ad = diamond._ad;
 	return (*this);
 }
+
+std::string	DiamondTrap::getName() const{
+	return (_name);
+}
+

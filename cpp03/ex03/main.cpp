@@ -32,7 +32,7 @@ WINDOW	*create_newwin(int height, int width, int starty, int startx){
 	return (win);
 }
 
-void	redraw(const ClapTrap &clappy, const ScavTrap& scavvy, const FragTrap& fraggy){
+void	redraw(const ClapTrap &clappy, const ScavTrap& scavvy, const FragTrap& fraggy, const DiamondTrap& dia){
 	delwin(map);
 	map = create_newwin(0.8*row, 0.75*col, 0, 0);
 
@@ -70,6 +70,15 @@ void	redraw(const ClapTrap &clappy, const ScavTrap& scavvy, const FragTrap& frag
 	mvwchgat(info, 16, 1, -1, NULL, 2, NULL);
 	mvwprintw(info, 17, 1, "%s: %i", "Attack Damage", fraggy.getAttackDamage());
 	mvwchgat(info, 17, 1, -1, NULL, 3, NULL);
+
+	mvwprintw(info, 19, 1, "%s", dia.getName().c_str());
+	mvwchgat(info, 19, 1, -1, A_BOLD, 0, NULL);
+	mvwprintw(info, 21, 1, "%s: %i", "Hit Ponits", dia.getHitPoints());
+	mvwchgat(info, 21, 1, -1, NULL, 1, NULL);
+	mvwprintw(info, 22, 1, "%s: %i", "Energy Points", dia.getEnergyPoints());
+	mvwchgat(info, 22, 1, -1, NULL, 2, NULL);
+	mvwprintw(info, 23, 1, "%s: %i", "Attack Damage", dia.getAttackDamage());
+	mvwchgat(info, 23, 1, -1, NULL, 3, NULL);
 
 	box(info, 0, 0);
 	wrefresh(info);
@@ -138,6 +147,7 @@ int	main(){
 	ClapTrap	clappy("Steven");
 	ScavTrap	scavvy("Alex");
 	FragTrap	fraggy("Petr");
+	DiamondTrap	dia("Max");
 
 	initscr();
 	if(has_colors() == FALSE){
@@ -152,6 +162,7 @@ int	main(){
 	init_pair(2, COLOR_GREEN, COLOR_BLACK);
 	init_pair(3, COLOR_MAGENTA, COLOR_BLACK);
 	init_pair(4, COLOR_BLUE, COLOR_BLACK);
+	init_pair(5, COLOR_CYAN, COLOR_BLACK);
 	keypad(stdscr, TRUE);
 	noecho();
 	curs_set(0);
@@ -160,12 +171,12 @@ int	main(){
 	console = create_newwin(0.22*row, 0.75*col, 0.8*row, 0);
 	info = create_newwin(row, 0.25*col, 0, 0.75*col);
 	menu = create_newwin(0.4*row, 0.375*col, 0.2*row, 0.1875*col);
-	redraw(clappy, scavvy, fraggy);
+	redraw(clappy, scavvy, fraggy, dia);
 	while((ch = getch()) != KEY_F(1)){
 		switch(ch){
 			case 10:
 				in_menu = 1;
-				redraw(clappy, scavvy, fraggy);
+				redraw(clappy, scavvy, fraggy, dia);
 				while((ch = getch()) != 10 && ch != KEY_F(1)){
 					switch(ch){
 						case 115:
@@ -224,7 +235,7 @@ int	main(){
 					// 		printw("\nThe pressed key is %i",ch);
 					}
 					// mvprintw(row-2,0,"This screen has %d rows and %d columns\n",row,col);
-					redraw(clappy, scavvy, fraggy);
+					redraw(clappy, scavvy, fraggy, dia);
 				}
 				in_menu = 0;
 				break;
@@ -232,12 +243,13 @@ int	main(){
 				// printw("\nThe pressed key is %i",ch);
 		}
 		// mvprintw(row-2,0,"This screen has %d rows and %d columns\n",row,col);
-		redraw(clappy, scavvy, fraggy);
+		redraw(clappy, scavvy, fraggy, dia);
 	}
 	clappy.~ClapTrap();
 	scavvy.~ScavTrap();
 	fraggy.~FragTrap();
-	redraw(clappy, scavvy, fraggy);
+	dia.~DiamondTrap();
+	redraw(clappy, scavvy, fraggy, dia);
 	sleep(2);
 	endwin();
 	exit_curses(0);
