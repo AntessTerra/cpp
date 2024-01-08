@@ -24,3 +24,8 @@ PPForm& PPForm::operator = (const PPForm& form){
 	}
 	return *this;
 }
+
+void		PPForm::printExecMessage() const{
+	std::cout << "📜 " << _target << " has been pardoned by Zaphod Beeblebrox. 📜" << std::endl;
+	return ;
+}

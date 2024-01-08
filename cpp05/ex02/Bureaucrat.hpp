@@ -22,8 +22,8 @@ public:
 	int			getGrade(void) const;
 	void		deGrade(int howMuch);
 	void		gradeUp(int howMuch);
-	void		signForm(AForm& aform) const;
-	void		executeForm(AForm const & aform);
+	void		signForm(AForm& aform);
+	void		executeForm(AForm const & aform) const;
 
 	class GradeTooHighException{
 	public:

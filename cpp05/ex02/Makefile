@@ -1,7 +1,7 @@
 NAME =	form
 CPPFLAGS = -Wall -Wextra -Werror -g -std=c++98
 
-SRC = main.cpp Bureaucrat.cpp AForm.cpp PPForm.cpp
+SRC = main.cpp Bureaucrat.cpp AForm.cpp PPForm.cpp RRForm.cpp SCForm.cpp
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)

@@ -13,6 +13,8 @@ public:
 	PPForm(const PPForm& ppform);
 	~PPForm();
 	PPForm& operator = (const PPForm& ppform);
+
+	void		printExecMessage() const;
 };
 
 #endif

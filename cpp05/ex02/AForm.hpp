@@ -23,8 +23,8 @@ public:
 	int			getExecGrade(void) const;
 	bool		getSignState(void) const;
 	void		beSigned(Bureaucrat& bure);
-	void		execute(Bureaucrat cosnt & executor) const;
-	void		printExecMessage(Bureaucrat cosnt & executor) const = 0;
+	void		execute(Bureaucrat const & executor) const;
+	virtual void		printExecMessage() const;
 
 	class GradeTooHighException{
 	public:

@@ -45,23 +45,30 @@ bool		AForm::getSignState(void) const{
 
 void		AForm::beSigned(Bureaucrat& bure){
 	if (bure.getGrade() > _toSignGrade && _signed == false){
-		bure.signForm(*this);
+		std::cout << bure.getName() << " couldn't sign " << getName() << " because grade too low" << std::endl;
 		throw GradeTooLowException(__FILE__, __LINE__);
 	}
 	else if (_signed == true)
 		throw AlreadySignedException(__FILE__, __LINE__);
 	_signed = true;
-	bure.signForm(*this);
+	std::cout << bure.getName() << " signed " << getName() << std::endl;
 	return ;
 }
 
-void		AForm::execute(Bureaucrat cosnt & executor) const{
+void		AForm::printExecMessage() const{
+	std::cout << "Abstract class text" << std::endl;
+	return ;
+}
+
+void		AForm::execute(Bureaucrat const & executor) const{
 	if (_signed == false)
 		throw NotSignedException(__FILE__, __LINE__);
 	else if (executor.getGrade() > _toExecGrade)
 		throw GradeTooLowException(__FILE__, __LINE__);
-	else
-		executor.executeForm(*this);
+	else {
+		std::cout << std::endl << executor.getName() << " executed " << getName() << std::endl << std::endl;
+		printExecMessage();
+	}
 	return ;
 }
 
