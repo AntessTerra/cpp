@@ -2,9 +2,9 @@
 
 Form::Form(std::string name, int toSignGrade, int toExecGrade): _name(name), _toSignGrade(toSignGrade), _toExecGrade(toExecGrade){
 	if (toSignGrade < 1 || toExecGrade < 1)
-		throw GradeTooHighException();
+		throw GradeTooHighException(__FILE__, __LINE__);
 	else if (toSignGrade > 150 || toExecGrade > 150)
-		throw GradeTooLowException();
+		throw GradeTooLowException(__FILE__, __LINE__);
 	_signed = false;
 	std::cout << "Creating a new Form!!" << std::endl;
 	return ;
@@ -46,10 +46,10 @@ bool		Form::getSignState(void) const{
 void		Form::beSigned(Bureaucrat& bure){
 	if (bure.getGrade() > _toSignGrade && _signed == false){
 		bure.signForm(*this);
-		throw GradeTooLowException();
+		throw GradeTooLowException(__FILE__, __LINE__);
 	}
 	else if (_signed == true)
-		throw AlreadySignedException();
+		throw AlreadySignedException(__FILE__, __LINE__);
 	_signed = true;
 	bure.signForm(*this);
 	return ;

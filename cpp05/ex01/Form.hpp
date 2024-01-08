@@ -24,21 +24,30 @@ public:
 	bool		getSignState(void) const;
 	void		beSigned(Bureaucrat& bure);
 
-	class GradeTooHighException : public std::exception{
-		virtual const char* what() const throw(){
-			return "FORM EXCEPTION: GRADE TOO HIGH!!";
+	class GradeTooHighException{
+	public:
+		GradeTooHighException(std::string file, int line) {
+			std::stringstream ss;
+			ss << file << ":" << line << std::endl << "FORM EXCEPTION: GRADE TOO HIGH!!";
+			throw std::runtime_error(ss.str().c_str());
 		}
 	};
 
-	class GradeTooLowException : public std::exception{
-		virtual const char* what() const throw(){
-			return "FORM EXCEPTION: GRADE TOO LOW!!";
+	class GradeTooLowException{
+	public:
+		GradeTooLowException(std::string file, int line) {
+			std::stringstream ss;
+			ss << file << ":" << line << std::endl << "FORM EXCEPTION: GRADE TOO LOW!!";
+			throw std::runtime_error(ss.str().c_str());
 		}
 	};
 
-	class AlreadySignedException : public std::exception{
-		virtual const char* what() const throw(){
-			return "FORM EXCEPTION: ALREADY SIGNED!!";
+	class AlreadySignedException{
+	public:
+		AlreadySignedException(std::string file, int line) {
+			std::stringstream ss;
+			ss << file << ":" << line << std::endl << "FORM EXCEPTION: ALREADY SIGNED!!";
+			throw std::runtime_error(ss.str().c_str());
 		}
 	};
 };

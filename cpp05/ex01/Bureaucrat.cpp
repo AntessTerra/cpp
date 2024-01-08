@@ -2,9 +2,9 @@
 
 Bureaucrat::Bureaucrat(std::string name, int grade): _name(name), _grade(grade){
 	if (grade < 1)
-		throw GradeTooHighException();
+		throw GradeTooHighException(__FILE__, __LINE__);
 	else if (grade > 150)
-		throw GradeTooLowException();
+		throw GradeTooLowException(__FILE__, __LINE__);
 	std::cout << "Creating a new Bureacrat!!" << std::endl;
 	return ;
 }
@@ -36,9 +36,9 @@ int			Bureaucrat::getGrade(void) const{
 
 void		Bureaucrat::deGrade(int howMuch){
 	if ((_grade + howMuch) < 1)
-		throw GradeTooHighException();
+		throw GradeTooHighException(__FILE__, __LINE__);
 	else if ((_grade + howMuch) > 150)
-		throw GradeTooLowException();
+		throw GradeTooLowException(__FILE__, __LINE__);
 	_grade += howMuch;
 	std::cout << "Degraded a Bureacrat to " << _grade << " !!" << std::endl;
 	return ;
@@ -46,9 +46,9 @@ void		Bureaucrat::deGrade(int howMuch){
 
 void		Bureaucrat::gradeUp(int howMuch){
 	if ((_grade - howMuch) < 1)
-		throw GradeTooHighException();
+		throw GradeTooHighException(__FILE__, __LINE__);
 	else if ((_grade - howMuch) > 150)
-		throw GradeTooLowException();
+		throw GradeTooLowException(__FILE__, __LINE__);
 	_grade -= howMuch;
 	std::cout << "A Bureacrat gradedUP to " << _grade << " !!" << std::endl;
 	return ;

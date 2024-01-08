@@ -2,6 +2,7 @@
 #define __BUREAUCRAT__
 
 #include <iostream>
+#include <sstream>
 
 class Bureaucrat
 {
@@ -19,15 +20,21 @@ public:
 	void		deGrade(int howMuch);
 	void		gradeUp(int howMuch);
 
-	class GradeTooHighException : public std::exception{
-		virtual const char* what() const throw(){
-			return "BUREAUCRAT EXCEPTION: GRADE TOO HIGH!!";
+	class GradeTooHighException{
+	public:
+		GradeTooHighException(std::string file, int line) {
+			std::stringstream ss;
+			ss << file << ":" << line << std::endl << "BUREAUCRAT EXCEPTION: GRADE TOO HIGH!!";
+			throw std::runtime_error(ss.str().c_str());
 		}
 	};
 
-	class GradeTooLowException : public std::exception{
-		virtual const char* what() const throw(){
-			return "BUREAUCRAT EXCEPTION: GRADE TOO LOW!!";
+	class GradeTooLowException{
+	public:
+		GradeTooLowException(std::string file, int line) {
+			std::stringstream ss;
+			ss << file << ":" << line << std::endl << "BUREAUCRAT EXCEPTION: GRADE TOO LOW!!";
+			throw std::runtime_error(ss.str().c_str());
 		}
 	};
 };
