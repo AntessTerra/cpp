@@ -13,7 +13,7 @@ int main(void){
 		Form copy(form);
 		Form copy2 = form;
 
-		std::cout << form << std::endl;
+		std::cout << copy << std::endl;
 	} catch (const std::exception& e) {
 		std::cout << e.what() << std::endl;
 	}
@@ -23,7 +23,7 @@ int main(void){
 		form.beSigned(bure);
 
 		std::cout << "\nOR NOT\n" << std::endl;
-		form.beSigned(bure);
+		bure.signForm(form);
 	} catch (const std::exception& e) {
 		std::cout << e.what() << std::endl;
 	}

@@ -45,13 +45,13 @@ bool		Form::getSignState(void) const{
 
 void		Form::beSigned(Bureaucrat& bure){
 	if (bure.getGrade() > _toSignGrade && _signed == false){
-		bure.signForm(*this);
+		std::cout << bure.getName() << " couldn't sign " << getName() << " because grade too low" << std::endl;
 		throw GradeTooLowException(__FILE__, __LINE__);
 	}
 	else if (_signed == true)
 		throw AlreadySignedException(__FILE__, __LINE__);
 	_signed = true;
-	bure.signForm(*this);
+	std::cout << bure.getName() << " signed " << getName() << std::endl;
 	return ;
 }
 

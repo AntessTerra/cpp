@@ -15,7 +15,7 @@ private:
 public:
 	AForm(std::string name, int gradeToSign, int gradeToExec);
 	AForm(const AForm& aform);
-	~AForm();
+	virtual ~AForm();
 	AForm& operator = (const AForm& aform);
 
 	std::string	getName(void) const;
@@ -30,7 +30,7 @@ public:
 	public:
 		GradeTooHighException(std::string file, int line) {
 			std::stringstream ss;
-			ss << file << ":" << line << std::endl << "FORM EXCEPTION: GRADE TOO HIGH!!";
+			ss << "\e[30m" << file << ":" << line << std::endl << "\e[31mFORM EXCEPTION: GRADE TOO HIGH!!\e[0m";
 			throw std::runtime_error(ss.str().c_str());
 		}
 	};
@@ -39,7 +39,7 @@ public:
 	public:
 		GradeTooLowException(std::string file, int line) {
 			std::stringstream ss;
-			ss << file << ":" << line << std::endl << "FORM EXCEPTION: GRADE TOO LOW!!";
+			ss << "\e[30m" << file << ":" << line << std::endl << "\e[31mFORM EXCEPTION: GRADE TOO LOW!!\e[0m";
 			throw std::runtime_error(ss.str().c_str());
 		}
 	};
@@ -48,7 +48,7 @@ public:
 	public:
 		AlreadySignedException(std::string file, int line) {
 			std::stringstream ss;
-			ss << file << ":" << line << std::endl << "FORM EXCEPTION: ALREADY SIGNED!!";
+			ss << "\e[30m" << file << ":" << line << std::endl << "\e[31mFORM EXCEPTION: ALREADY SIGNED!!\e[0m";
 			throw std::runtime_error(ss.str().c_str());
 		}
 	};
@@ -57,7 +57,7 @@ public:
 	public:
 		NotSignedException(std::string file, int line) {
 			std::stringstream ss;
-			ss << file << ":" << line << std::endl << "FORM EXCEPTION: FORM NOT SIGNED YET!!";
+			ss << "\e[30m" << file << ":" << line << std::endl << "\e[31mFORM EXCEPTION: FORM NOT SIGNED YET!!\e[0m";
 			throw std::runtime_error(ss.str().c_str());
 		}
 	};

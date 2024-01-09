@@ -24,7 +24,7 @@ public:
 	public:
 		GradeTooHighException(std::string file, int line) {
 			std::stringstream ss;
-			ss << file << ":" << line << std::endl << "BUREAUCRAT EXCEPTION: GRADE TOO HIGH!!";
+			ss << "\e[30m" << file << ":" << line << std::endl << "\e[31mBUREAUCRAT EXCEPTION: GRADE TOO HIGH!!\e[0m";
 			throw std::runtime_error(ss.str().c_str());
 		}
 	};
@@ -33,7 +33,7 @@ public:
 	public:
 		GradeTooLowException(std::string file, int line) {
 			std::stringstream ss;
-			ss << file << ":" << line << std::endl << "BUREAUCRAT EXCEPTION: GRADE TOO LOW!!";
+			ss << "\e[30m" << file << ":" << line << std::endl << "\e[31mBUREAUCRAT EXCEPTION: GRADE TOO LOW!!\e[0m";
 			throw std::runtime_error(ss.str().c_str());
 		}
 	};

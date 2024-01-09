@@ -54,11 +54,8 @@ void		Bureaucrat::gradeUp(int howMuch){
 	return ;
 }
 
-void		Bureaucrat::signForm(Form& form) const{
-	if (form.getSignState() == false)
-		std::cout << _name << " couldn't sign " << form.getName() << " because grade too low" << std::endl;
-	else
-		std::cout << _name << " signed " << form.getName() << std::endl;
+void		Bureaucrat::signForm(Form& form){
+	form.beSigned(*this);
 	return ;
 }
 

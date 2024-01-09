@@ -28,7 +28,7 @@ public:
 	public:
 		GradeTooHighException(std::string file, int line) {
 			std::stringstream ss;
-			ss << file << ":" << line << std::endl << "FORM EXCEPTION: GRADE TOO HIGH!!";
+			ss << "\e[30m" << file << ":" << line << std::endl << "\e[31mFORM EXCEPTION: GRADE TOO HIGH!!\e[0m";
 			throw std::runtime_error(ss.str().c_str());
 		}
 	};
@@ -37,7 +37,7 @@ public:
 	public:
 		GradeTooLowException(std::string file, int line) {
 			std::stringstream ss;
-			ss << file << ":" << line << std::endl << "FORM EXCEPTION: GRADE TOO LOW!!";
+			ss << "\e[30m" << file << ":" << line << std::endl << "\e[31mFORM EXCEPTION: GRADE TOO LOW!!\e[0m";
 			throw std::runtime_error(ss.str().c_str());
 		}
 	};
@@ -46,7 +46,7 @@ public:
 	public:
 		AlreadySignedException(std::string file, int line) {
 			std::stringstream ss;
-			ss << file << ":" << line << std::endl << "FORM EXCEPTION: ALREADY SIGNED!!";
+			ss << "\e[30m" << file << ":" << line << std::endl << "\e[31mFORM EXCEPTION: ALREADY SIGNED!!\e[0m";
 			throw std::runtime_error(ss.str().c_str());
 		}
 	};

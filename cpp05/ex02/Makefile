@@ -1,4 +1,4 @@
-NAME =	form
+NAME =	aform
 CPPFLAGS = -Wall -Wextra -Werror -g -std=c++98
 
 SRC = main.cpp Bureaucrat.cpp AForm.cpp PPForm.cpp RRForm.cpp SCForm.cpp
