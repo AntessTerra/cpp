@@ -74,7 +74,7 @@ int ScalarConverter::convert(std::string str){
 				std::cout << "char: NON PRINTABLE" << std::endl;
 			else
 				std::cout << "char: '" << static_cast<char>(input) << "'" << std::endl;
-			if (std::isinf(input) || std::isnan(input) || input < INT_MIN || input > INT_MAX)
+			if (std::isinf(input) || std::isnan(input) || (int) input < INT_MIN || (int)input > INT_MAX)
 				std::cout << "int: OUT OF INT BOUNDS" << std::endl;
 			else
 				std::cout << "int: " <<  static_cast<int>(input) << std::endl;
@@ -100,7 +100,7 @@ int ScalarConverter::convert(std::string str){
 				std::cout << "char: NON PRINTABLE" << std::endl;
 			else
 				std::cout << "char: '" << static_cast<char>(input) << "'" << std::endl;
-			if (std::isinf(input) || std::isnan(input) || input < INT_MIN || input > INT_MAX)
+			if (std::isinf(input) || std::isnan(input) || (int) input < INT_MIN || (int) input > INT_MAX)
 				std::cout << "int: OUT OF INT BOUNDS" << std::endl;
 			else
 				std::cout << "int: " <<  static_cast<int>(input) << std::endl;

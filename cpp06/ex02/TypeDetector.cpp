@@ -33,15 +33,15 @@ void	identify(Base* p){
 
 void	identify(Base& p){
 	try {
-		dynamic_cast<A&>(p);
+		(void) dynamic_cast<A&>(p);
 		std::cout << "\e[32mA has been identified from a reference\e[0m" << std::endl;
 	} catch (const std::exception& e) {}
 	try {
-		dynamic_cast<B&>(p);
+		(void) dynamic_cast<B&>(p);
 		std::cout << "\e[33mB has been identified from a reference\e[0m" << std::endl;
 	} catch (const std::exception& e) {}
 	try {
-		dynamic_cast<C&>(p);
+		(void) dynamic_cast<C&>(p);
 		std::cout << "\e[34mC has been identified from a reference\e[0m" << std::endl;
 	} catch (const std::exception& e) {}
 }
