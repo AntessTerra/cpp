@@ -7,7 +7,7 @@ int main(void){
 
 	::print(li);
 
-	try{std::cout << "\n\e[32mFOUND: " << ::easyfind(li, 3) << "\e[0m\n" << std::endl;}
+	try{std::cout << "\n\e[32mFOUND: " << ::easyfind(li, 42) << "\e[0m\n" << std::endl;}
 	catch (std::exception& e){std::cerr << "\e[31mValue was not found!!\e[0m\n" << std::endl;}
 
 	std::list<std::string> cha;

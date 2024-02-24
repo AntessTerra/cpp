@@ -18,14 +18,10 @@ public:
 	Span& operator = (const Span&);
 
 	void addNumber(int);
-	void shortestSpan(int);
-	void longestSpan(int);
+	int shortestSpan();
+	int longestSpan();
+	void addNumbers(std::list<int>::iterator, std::list<int>::iterator);
+	void print();
 };
-
-template <typename T>
-void print(T& li){
-	for (typename T::iterator it = li.begin(); it != li.end(); it++)
-			std::cout << *it << std::endl;
-}
 
 #endif
