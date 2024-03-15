@@ -1,56 +1,40 @@
-#include "MutantStack.hpp"
+#include "BitcoinExchange.hpp"
 
-int main()
-{
-	std::cout << "\n\e[32mSubject main tests\e[0m\n" << std::endl;
+int main(int argc, char** argv) {
+	if (argc != 2)
+		return std::cout << "Error: wrong number of arguments.\nUsage ./btc <filename>" << std::endl, 1;
+	else {
+		try {
+			BitcoinExchange btc;
+			std::string filename(argv[1]), sdate, svalue, line, firstline;
+			std::fstream in;
 
-	MutantStack<int> mstack;
-
-	mstack.push(5);
-	mstack.push(17);
-
-	std::cout << mstack.top() << std::endl;
-
-	mstack.pop();
-
-	std::cout << mstack.size() << std::endl;
-
-	mstack.push(3);
-	mstack.push(5);
-	mstack.push(737);
-	//[...]
-	mstack.push(0);
-
-	MutantStack<int>::iterator it = mstack.begin();
-	MutantStack<int>::iterator ite = mstack.end();
-
-	++it;
-	--it;
-
-	while (it != ite)
-	{
-		std::cout << *it << std::endl;
-		++it;
+			in.open(filename.c_str(), std::ios::in);
+			if (!in.is_open())
+				throw std::runtime_error("Error: file not found.");
+			std::getline(in, firstline);
+			char delimiter = firstline[firstline.find_first_not_of(" abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789")];
+			while (std::getline(in, line)) {
+				std::stringstream ss(line);
+				std::getline(ss, sdate, delimiter);
+				std::getline(ss, svalue, delimiter);
+				s_date date;
+				date.day = std::atoi(sdate.substr(8, 2).c_str());
+				date.month = std::atoi(sdate.substr(5, 2).c_str());
+				date.year = std::atoi(sdate.substr(0, 4).c_str());
+				float f = std::atof(svalue.c_str());
+				if (date.day > 31 || date.day < 1 || date.month > 12 || date.month < 1 || date.year < 2000 || date.year > 2099)
+					std::cerr << "Error: bad input => " << date.year << "-" << date.month << "-" << date.day << std::endl;
+				else if (f < 0)
+					std::cerr << "Error: not a positive number." << std::endl;
+				else if (f > 1000)
+					std::cerr << "Error: too large number." << std::endl;
+				else
+					std::cout << date.year << "-" << date.month << "-" << date.day << " => " << f * btc.getClosestValue(date) << std::endl;
+			}
+			in.close();
+		}
+		catch(const std::exception& e) { std::cerr << e.what() << '\n';}
 	}
-
-	std::stack<int> s(mstack);
-
-	std::cout << "\n\e[32mExtra main tests\e[0m\n" << std::endl;
-
-	std::cout << "\e[33mPrinting a copy contructor\e[0m" << std::endl;
-	MutantStack<int> copy(mstack);
-	print(copy);
-
-	std::cout << "\e[33mPrinting a copy and assign constructor\e[0m" << std::endl;
-	MutantStack<int> copy2;
-	copy2 = mstack;
-	print(copy2);
-
-	std::cout << "\e[33mCreating a string MutantStack\e[0m" << std::endl;
-	MutantStack<std::string> sstack;
-	sstack.push("42");
-	sstack.push("is");
-	sstack.push("awesome");
-	print(sstack);
 	return 0;
 }

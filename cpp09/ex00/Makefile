@@ -1,14 +1,12 @@
 NAME =	btc
 CPPFLAGS = -Wall -Wextra -Werror -g -std=c++98
 
-SRC = main.cpp BitconiExchange.cpp
-
-OBJ = $(SRC:.c=.o)
+SRC = main.cpp BitcoinExchange.cpp
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	@c++ $(CPPFLAGS) -o $@ $^
+$(NAME):
+	@c++ $(CPPFLAGS) -o $@ $(SRC)
 
 clean:
 
