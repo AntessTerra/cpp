@@ -6,9 +6,6 @@ int main(int argc, char** argv) {
 	else {
 		try {
 			PmergeMe pme(argc, argv);
-
-			print(pme.getList());
-			print(pme.getVector());
 		}
 		catch (std::invalid_argument &e) {
 			std::cout << "Error: " << e.what() << std::endl;}

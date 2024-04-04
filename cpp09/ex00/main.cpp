@@ -30,7 +30,7 @@ int main(int argc, char** argv) {
 				else if (f > 1000)
 					std::cerr << "Error: too large number." << std::endl;
 				else
-					std::cout << date.year << "-" << date.month << "-" << date.day << " => " << f * btc.getClosestValue(date) << std::endl;
+					std::cout << date.year << "-" << std::setw(2) << std::setfill('0') << date.month << "-" << std::setw(2) << std::setfill('0') << date.day << " => " << f << " = " << f * btc.getClosestValue(date) << std::endl;
 			}
 			in.close();
 		}

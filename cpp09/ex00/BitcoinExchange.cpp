@@ -6,6 +6,7 @@ bool operator<(const s_date& l, const s_date& r) {
 	if (l.month < r.month) return true;
 	if (l.month > r.month) return false;
 	if (l.day < r.day) return true;
+	if (l.day == r.day) return true;
 	return false;
 }
 
@@ -54,5 +55,5 @@ float	BitcoinExchange::getClosestValue(s_date date) {
 	if (it == _data.end())
 		return (--it)->second;
 	std::multimap<s_date, float>::iterator it2 = it;
-	return (--it)->second - it2->second > 0 ? it2->second : it->second;
+	return (--it)->first < it2->first ? it->second : it2->second;
 }

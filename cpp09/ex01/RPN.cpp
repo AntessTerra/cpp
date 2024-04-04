@@ -26,7 +26,7 @@ RPN::RPN(std::string expression) : _expression(expression){
 		else
 			throw std::invalid_argument("Invalid character in expression.");
 	}
-	std::cout << "Result: " << _data.top() << std::endl;
+	std::cout << _data.top() << std::endl;
 }
 
 RPN::RPN(const RPN &other) {

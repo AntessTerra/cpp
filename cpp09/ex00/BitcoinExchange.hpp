@@ -6,6 +6,7 @@
 #include <sstream>
 #include <map>
 #include <algorithm>
+#include <iomanip>
 
 struct s_date {
 	int day;
